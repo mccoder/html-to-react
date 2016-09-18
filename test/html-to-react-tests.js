@@ -296,4 +296,26 @@ describe('Html2React', function() {
             });
         });
     });
+
+    describe('whitespace in text', function () {
+        it('should be preserved if combined with other content', function() {
+            var htmlInput = '<div> hi </div>';
+
+            var reactComponent = parser.parse(htmlInput);
+            var reactHtml = ReactDOMServer.renderToStaticMarkup(reactComponent);
+
+            assert.equal(reactHtml, htmlInput);
+        });
+
+        // Should it strip out contents of a div containing only whitespace?
+        it('should be stripped from a div containing nothing else', function() {
+            var htmlInput = '<div>  </div>';
+            var htmlExpected = '<div></div>';
+
+            var reactComponent = parser.parse(htmlInput);
+            var reactHtml = ReactDOMServer.renderToStaticMarkup(reactComponent);
+
+            assert.equal(reactHtml, htmlExpected);
+        });
+    });
 });
