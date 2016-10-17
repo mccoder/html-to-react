@@ -76,15 +76,14 @@ describe('Html2React', function () {
     });
 
     it('should return a valid HTML string with a react camelCase attribute', function () {
-      ['contenteditable', 'mozallowfullscreen', 'webkitallowfullscreen',].forEach(
-          function (attribute) {
+      R.forEach(function (attribute) {
         var htmlInput = '<div ' + attribute + '="' + attribute + '"></div>';
 
         var reactComponent = parser.parse(htmlInput);
         var reactHtml = ReactDOMServer.renderToStaticMarkup(reactComponent);
 
         assert.equal(reactHtml, htmlInput);
-      });
+      }, ['contenteditable', 'mozallowfullscreen', 'webkitallowfullscreen',]);
     });
 
     it('should handle dashed attributes', function () {
