@@ -39,17 +39,21 @@ describe('Html2React', function () {
     });
 
     it('should return a valid HTML string with inline styles.', function () {
-      var styles = createStyleJsonFromString('font-size:14px; color:#FFFFFF; font-family: Arial, Helvetica, sans-serif;');
-      assert.equal(styles['fontSize'], '14px');
-      assert.equal(styles['color'], '#FFFFFF');
-      assert.equal(styles['fontFamily'], 'Arial, Helvetica, sans-serif');
+      var htmlInput = '<div style="font-size:14px;color:#FFFFFF;font-family: Arial, Helvetica, sans-serif;"></div>';
+
+      var reactComponent = parser.parse(htmlInput);
+      var reactHtml = ReactDOMServer.renderToStaticMarkup(reactComponent);
+
+      assert.equal(reactHtml, htmlInput);
     });
 
     it('should return a valid HTML string with inline styles. Styles found in Oracle mail', function () {
-      var styles = createStyleJsonFromString('font-size:10.5pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;');
-      assert.equal(styles['fontSize'], '10.5pt');
-      assert.equal(styles['color'], '#FFFFFF');
-      assert.equal(styles['fontFamily'], '"Arial","sans-serif"');
+      var htmlInput = '<div style="font-size:10.5pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;"></div>';
+
+      var reactComponent = parser.parse(htmlInput);
+      var reactHtml = ReactDOMServer.renderToStaticMarkup(reactComponent);
+
+      assert.equal(reactHtml, htmlInput);
     });
 
     it('should return a valid HTML string with empty inline styles', function () {
